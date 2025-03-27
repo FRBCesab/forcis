@@ -63,7 +63,7 @@
       <img src="../logo.png" class="logo" alt=""><h1>Data conversion</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/FRBCesab/forcis/blob/master/vignettes/data-conversion.Rmd" class="external-link"><code>vignettes/data-conversion.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/FRBCesab/forcis/blob/main/vignettes/data-conversion.Rmd" class="external-link"><code>vignettes/data-conversion.Rmd</code></a></small>
       <div class="d-none name"><code>data-conversion.Rmd</code></div>
     </div>
 
@@ -165,34 +165,34 @@ either relative abundance or number concentrations.</p>
 <span><span class="co"># Header ----</span></span>
 <span><span class="va">net_data_raw_ab</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">net_data_raw_ab</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">net_data_raw_ab</span><span class="op">)</span></span>
-<span><span class="co">#&gt;   data_type    cruise_id            profile_id sample_id sample_min_depth</span></span>
-<span><span class="co">#&gt; 1       Net RinaldoDohrn L20_RinaldoDohrn_10_1  L20_10_1                0</span></span>
-<span><span class="co">#&gt; 2       Net RinaldoDohrn L20_RinaldoDohrn_10_1  L20_10_1                0</span></span>
-<span><span class="co">#&gt; 3       Net RinaldoDohrn L20_RinaldoDohrn_10_1  L20_10_1                0</span></span>
-<span><span class="co">#&gt; 4       Net RinaldoDohrn L20_RinaldoDohrn_10_1  L20_10_1                0</span></span>
-<span><span class="co">#&gt; 5       Net RinaldoDohrn L20_RinaldoDohrn_10_1  L20_10_1                0</span></span>
-<span><span class="co">#&gt; 6       Net RinaldoDohrn L20_RinaldoDohrn_10_1  L20_10_1                0</span></span>
-<span><span class="co">#&gt;   sample_max_depth profile_depth_min profile_depth_max profile_date_time</span></span>
-<span><span class="co">#&gt; 1               20                 0               300        09/04/1979</span></span>
-<span><span class="co">#&gt; 2               20                 0               300        09/04/1979</span></span>
-<span><span class="co">#&gt; 3               20                 0               300        09/04/1979</span></span>
-<span><span class="co">#&gt; 4               20                 0               300        09/04/1979</span></span>
-<span><span class="co">#&gt; 5               20                 0               300        09/04/1979</span></span>
-<span><span class="co">#&gt; 6               20                 0               300        09/04/1979</span></span>
-<span><span class="co">#&gt;   cast_net_op_m2 sample_segment_length site_lat_start_decimal</span></span>
-<span><span class="co">#&gt; 1             NA                    NA                   40.7</span></span>
-<span><span class="co">#&gt; 2             NA                    NA                   40.7</span></span>
-<span><span class="co">#&gt; 3             NA                    NA                   40.7</span></span>
-<span><span class="co">#&gt; 4             NA                    NA                   40.7</span></span>
-<span><span class="co">#&gt; 5             NA                    NA                   40.7</span></span>
-<span><span class="co">#&gt; 6             NA                    NA                   40.7</span></span>
-<span><span class="co">#&gt;   site_lon_start_decimal sample_volume_filtered            taxa counts_raw_ab</span></span>
-<span><span class="co">#&gt; 1                  15.08                   1000   b_digitata_VT             0</span></span>
-<span><span class="co">#&gt; 2                  15.08                   1000    b_pumilio_VT             0</span></span>
-<span><span class="co">#&gt; 3                  15.08                   1000 b_variabilis_VT             0</span></span>
-<span><span class="co">#&gt; 4                  15.08                   1000     c_nitida_VT             0</span></span>
-<span><span class="co">#&gt; 5                  15.08                   1000   d_anfracta_VT             0</span></span>
-<span><span class="co">#&gt; 6                  15.08                   1000     g_adamsi_VT             0</span></span></code></pre></div>
+<span><span class="co">#&gt;   data_type cruise_id profile_id sample_id sample_min_depth sample_max_depth</span></span>
+<span><span class="co">#&gt; 1       Net     MD193      A3_C1 A3_C1_S10               80              100</span></span>
+<span><span class="co">#&gt; 2       Net     MD193      A3_C1 A3_C1_S10               80              100</span></span>
+<span><span class="co">#&gt; 3       Net     MD193      A3_C1 A3_C1_S10               80              100</span></span>
+<span><span class="co">#&gt; 4       Net     MD193      A3_C1 A3_C1_S10               80              100</span></span>
+<span><span class="co">#&gt; 5       Net     MD193      A3_C1 A3_C1_S10               80              100</span></span>
+<span><span class="co">#&gt; 6       Net     MD193      A3_C1 A3_C1_S10               80              100</span></span>
+<span><span class="co">#&gt;   profile_depth_min profile_depth_max profile_date_time cast_net_op_m2</span></span>
+<span><span class="co">#&gt; 1                 0               100        21/02/2013           0.25</span></span>
+<span><span class="co">#&gt; 2                 0               100        21/02/2013           0.25</span></span>
+<span><span class="co">#&gt; 3                 0               100        21/02/2013           0.25</span></span>
+<span><span class="co">#&gt; 4                 0               100        21/02/2013           0.25</span></span>
+<span><span class="co">#&gt; 5                 0               100        21/02/2013           0.25</span></span>
+<span><span class="co">#&gt; 6                 0               100        21/02/2013           0.25</span></span>
+<span><span class="co">#&gt;   sample_segment_length site_lat_start_decimal site_lon_start_decimal</span></span>
+<span><span class="co">#&gt; 1                    NA                 -50.37                     72</span></span>
+<span><span class="co">#&gt; 2                    NA                 -50.37                     72</span></span>
+<span><span class="co">#&gt; 3                    NA                 -50.37                     72</span></span>
+<span><span class="co">#&gt; 4                    NA                 -50.37                     72</span></span>
+<span><span class="co">#&gt; 5                    NA                 -50.37                     72</span></span>
+<span><span class="co">#&gt; 6                    NA                 -50.37                     72</span></span>
+<span><span class="co">#&gt;   sample_volume_filtered                        taxa counts_raw_ab</span></span>
+<span><span class="co">#&gt; 1                      5               b_digitata_VT             0</span></span>
+<span><span class="co">#&gt; 2                      5 g_truncatulinoides_right_VT             0</span></span>
+<span><span class="co">#&gt; 3                      5                  g_uvula_VT            63</span></span>
+<span><span class="co">#&gt; 4                      5                g_inflata_VT             0</span></span>
+<span><span class="co">#&gt; 5                      5               g_tenellus_VT             0</span></span>
+<span><span class="co">#&gt; 6                      5              n_dutertrei_VT             1</span></span></code></pre></div>
 <p>The functions <code>compute_*()</code> output a table in a
 long-format as well as a message reporting the amount of data that could
 not be converted because of missing metadata.</p>
@@ -220,7 +220,7 @@ total assemblage counts when available.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Convert species counts in relative abundance ----</span></span>
 <span><span class="va">net_data_rel_ab</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/computations.html">compute_frequencies</a></span><span class="op">(</span><span class="va">net_data</span>, aggregate <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Counts from 12 samples could not be converted because of missing volume data</span></span>
+<span><span class="co">#&gt; Counts from 14 samples could not be converted because of missing volume data</span></span>
 <span><span class="co">#&gt; Counts from 0 samples could not be converted because of missing data on total assemblage</span></span></code></pre></div>
 </div>
 </div>

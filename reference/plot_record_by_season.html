@@ -37,7 +37,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Plot sample records by season</h1>
-      <small class="dont-index">Source: <a href="https://github.com/FRBCesab/forcis/blob/master/R/plot_record_by_season.R" class="external-link"><code>R/plot_record_by_season.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/FRBCesab/forcis/blob/main/R/plot_record_by_season.R" class="external-link"><code>R/plot_record_by_season.R</code></a></small>
       <div class="d-none name"><code>plot_record_by_season.Rd</code></div>
     </div>
 
@@ -73,9 +73,6 @@
 <span class="r-in"><span>                         package <span class="op">=</span> <span class="st">"forcis"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">net_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.table</a></span><span class="op">(</span><span class="va">file_name</span>, dec <span class="op">=</span> <span class="st">"."</span>, sep <span class="op">=</span> <span class="st">";"</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Add 'data_type' column ----</span></span></span>
-<span class="r-in"><span><span class="va">net_data</span><span class="op">$</span><span class="st">"data_type"</span> <span class="op">&lt;-</span> <span class="st">"Net"</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Plot data by year (example dataset) ----</span></span></span>
 <span class="r-in"><span><span class="fu">plot_record_by_season</span><span class="op">(</span><span class="va">net_data</span><span class="op">)</span></span></span>
