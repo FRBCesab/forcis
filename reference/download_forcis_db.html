@@ -56,7 +56,7 @@ files will be also downloaded.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">download_forcis_db</span><span class="op">(</span></span>
 <span>  path <span class="op">=</span> <span class="st">"."</span>,</span>
 <span>  version <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="va">forcis_version</span>,</span>
-<span>  check_for_update <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="va">check_for_update</span>,</span>
+<span>  check_for_update <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="va">forcis_check_for_update</span>,</span>
 <span>  overwrite <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  timeout <span class="op">=</span> <span class="fl">60</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -84,11 +84,11 @@ version of the database.</p></dd>
 
 <dt id="arg-check-for-update">check_for_update<a class="anchor" aria-label="anchor" href="#arg-check-for-update"></a></dt>
 <dd><p>a <code>logical</code>. If <code>TRUE</code> (default) the function will
-check if a newer version of the FORCIS database is available on Zenodo and
-will print an informative message. Note that this argument can be handle
-with the global option <code>check_for_update</code>. For example, if user calls
-<code>options(check_for_update = FALSE)</code>, the message to download the latest
-version will be disabled for the current R session.</p></dd>
+check if a newer version of the FORCIS database is available on Zenodo
+and will print an informative message. Note that this argument can be
+handle with the global option <code>forcis_check_for_update</code>. For example, if
+user calls <code>options(forcis_check_for_update = FALSE)</code>, the message to
+download the latest version will be disabled for the current R session.</p></dd>
 
 
 <dt id="arg-overwrite">overwrite<a class="anchor" aria-label="anchor" href="#arg-overwrite"></a></dt>

@@ -106,12 +106,12 @@ interesting to manually delete the folder of the previous versions.</p>
 </h2>
 <p>If for some reason users want to freeze the version they use, it is
 possible to disable this message by setting the argument
-<code>check_for_update</code> to <code>FALSE</code> in the
+<code>forcis_check_for_update</code> to <code>FALSE</code> in the
 <code>read_*_data()</code> functions.</p>
 <p>It is also possible to disable this message globally for the current
 session:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>check_for_update <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>forcis_check_for_update <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <p>The package <code>forcis</code> <em>“knows”</em> which version of the
 database you used last time. A hidden file named <code>.forcis</code> is
 created (or updated) each time the function
