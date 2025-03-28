@@ -62,7 +62,8 @@ relative abundance, and number concentration, using counts metadata.</p>
 
 
 <dl><dt id="arg-data">data<a class="anchor" aria-label="anchor" href="#arg-data"></a></dt>
-<dd><p>a <code>data.frame</code>. One obtained by <code>read_*_data()</code> functions.</p></dd>
+<dd><p>a <code>tibble</code> or a <code>data.frame</code>. One obtained by <code>read_*_data()</code>
+functions.</p></dd>
 
 
 <dt id="arg-aggregate">aggregate<a class="anchor" aria-label="anchor" href="#arg-aggregate"></a></dt>
@@ -73,7 +74,7 @@ aggregated by <code>sample_id</code>.</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A <code>data.frame</code> in long format with two additional columns: <code>taxa</code>,
+    <p>A <code>tibble</code> in long format with two additional columns: <code>taxa</code>,
 the taxon name and <code>counts_*</code>, the number concentration (<code>counts_n_conc</code>) or
 the relative abundance (<code>counts_rel_ab</code>) or the raw abundance
 (<code>counts_raw_ab</code>).</p>
