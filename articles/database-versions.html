@@ -112,22 +112,11 @@ possible to disable this message by setting the argument
 session:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>forcis_check_for_update <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
-<p>The package <code>forcis</code> <em>“knows”</em> which version of the
-database you used last time. A hidden file named <code>.forcis</code> is
-created (or updated) each time the function
-<code><a href="../reference/download_forcis_db.html">download_forcis_db()</a></code> or <code>read_*_data()</code> is
-called. This hidden file contains one line:</p>
-<pre><code><span><span class="va">FORCIS_VERSION</span><span class="op">=</span><span class="fl">99</span></span></code></pre>
-<p>Note that this hidden file is used by some functions of the
-<code>forcis</code> package. Users don’t need to edit it manually.</p>
 <p>If you want to be sure to use a specific version of the database, you
 can use the argument <code>version</code> of the
 <code>read_*_data()</code> functions, or use the following line:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>forcis_version <span class="op">=</span> <span class="st">"99"</span><span class="op">)</span></span></code></pre></div>
-<p>At any time, user can run the function
-<code><a href="../reference/get_current_version.html">get_current_version()</a></code> to check the version of the database
-currently in use.</p>
 <blockquote>
 <p>But again, it is <strong>recommended to use the latest
 version</strong> of the database.</p>
