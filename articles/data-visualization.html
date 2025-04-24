@@ -131,34 +131,36 @@ data on a World map. Let’s map the plankton nets data.</p>
 the <code>forcis</code> package. For example:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Filter net data ----</span></span>
-<span><span class="va">indian_net_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/filter_by_ocean.html">filter_by_ocean</a></span><span class="op">(</span><span class="va">net_data</span>, ocean <span class="op">=</span> <span class="st">"Indian Ocean"</span><span class="op">)</span></span>
+<span><span class="va">net_data_indian</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/filter_by_ocean.html">filter_by_ocean</a></span><span class="op">(</span><span class="va">net_data</span>, ocean <span class="op">=</span> <span class="st">"Indian Ocean"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Map filtered data ----</span></span>
-<span><span class="fu"><a href="../reference/ggmap_data.html">ggmap_data</a></span><span class="op">(</span><span class="va">indian_net_data</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="../reference/ggmap_data.html">ggmap_data</a></span><span class="op">(</span><span class="va">net_data_indian</span><span class="op">)</span></span></code></pre></div>
 <p>Note that the <code>forcis</code> package is pipe-friendly.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Same as before, but w/ the pipe ----</span></span>
-<span><span class="va">net_data</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu"><a href="../reference/filter_by_ocean.html">filter_by_ocean</a></span><span class="op">(</span>ocean <span class="op">=</span> <span class="st">"Indian Ocean"</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span><span class="va">net_data</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/filter_by_ocean.html">filter_by_ocean</a></span><span class="op">(</span>ocean <span class="op">=</span> <span class="st">"Indian Ocean"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/ggmap_data.html">ggmap_data</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>You can export this map with the function <code><a href="https://ggplot2.tidyverse.org/reference/ggsave.html" class="external-link">ggsave()</a></code> of
 the package <code>ggplot2</code>.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Map filtered data ----</span></span>
-<span><span class="va">indian_net_data_map</span> <span class="op">&lt;-</span> <span class="va">net_data</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu"><a href="../reference/filter_by_ocean.html">filter_by_ocean</a></span><span class="op">(</span>ocean <span class="op">=</span> <span class="st">"Indian Ocean"</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span><span class="va">net_data_indian_map</span> <span class="op">&lt;-</span> <span class="va">net_data</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/filter_by_ocean.html">filter_by_ocean</a></span><span class="op">(</span>ocean <span class="op">=</span> <span class="st">"Indian Ocean"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/ggmap_data.html">ggmap_data</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"FORCIS net data - Indian Ocean"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Save as PNG ----</span></span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html" class="external-link">ggsave</a></span><span class="op">(</span><span class="va">indian_net_data_map</span>, </span>
-<span>       filename <span class="op">=</span> <span class="st">"indian_net_data_map.png"</span>,</span>
-<span>       width    <span class="op">=</span> <span class="fl">20</span>, </span>
-<span>       height   <span class="op">=</span> <span class="fl">11</span>, </span>
-<span>       units    <span class="op">=</span> <span class="st">"cm"</span>, </span>
-<span>       dpi      <span class="op">=</span> <span class="fl">300</span>,</span>
-<span>       scale    <span class="op">=</span> <span class="fl">1.5</span>,</span>
-<span>       bg       <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html" class="external-link">ggsave</a></span><span class="op">(</span></span>
+<span>  <span class="va">net_data_indian_map</span>,</span>
+<span>  filename <span class="op">=</span> <span class="st">"net_data_indian_map.png"</span>,</span>
+<span>  width <span class="op">=</span> <span class="fl">20</span>,</span>
+<span>  height <span class="op">=</span> <span class="fl">11</span>,</span>
+<span>  units <span class="op">=</span> <span class="st">"cm"</span>,</span>
+<span>  dpi <span class="op">=</span> <span class="fl">300</span>,</span>
+<span>  scale <span class="op">=</span> <span class="fl">1.5</span>,</span>
+<span>  bg <span class="op">=</span> <span class="st">"white"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
