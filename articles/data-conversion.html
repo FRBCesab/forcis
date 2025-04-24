@@ -158,9 +158,9 @@ either relative abundance or number concentrations.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Format ----</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">net_data</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 2451   77</span></span>
+<span><span class="co">#&gt; [1] 2451   80</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">net_data_raw_ab</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 39032    16</span></span>
+<span><span class="co">#&gt; [1] 39032    19</span></span>
 <span></span>
 <span><span class="co"># Header ----</span></span>
 <span><span class="va">net_data_raw_ab</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">net_data_raw_ab</span><span class="op">)</span></span>
@@ -186,13 +186,20 @@ either relative abundance or number concentrations.</p>
 <span><span class="co">#&gt; 4                    NA                 -50.37                     72</span></span>
 <span><span class="co">#&gt; 5                    NA                 -50.37                     72</span></span>
 <span><span class="co">#&gt; 6                    NA                 -50.37                     72</span></span>
-<span><span class="co">#&gt;   sample_volume_filtered                        taxa counts_raw_ab</span></span>
-<span><span class="co">#&gt; 1                      5               b_digitata_VT             0</span></span>
-<span><span class="co">#&gt; 2                      5 g_truncatulinoides_right_VT             0</span></span>
-<span><span class="co">#&gt; 3                      5                  g_uvula_VT            63</span></span>
-<span><span class="co">#&gt; 4                      5                g_inflata_VT             0</span></span>
-<span><span class="co">#&gt; 5                      5               g_tenellus_VT             0</span></span>
-<span><span class="co">#&gt; 6                      5              n_dutertrei_VT             1</span></span></code></pre></div>
+<span><span class="co">#&gt;   sample_volume_filtered site_id cast_id sample_sst                        taxa</span></span>
+<span><span class="co">#&gt; 1                      5      A3   A3_C1       3.09               b_digitata_VT</span></span>
+<span><span class="co">#&gt; 2                      5      A3   A3_C1       3.09 g_truncatulinoides_right_VT</span></span>
+<span><span class="co">#&gt; 3                      5      A3   A3_C1       3.09                  g_uvula_VT</span></span>
+<span><span class="co">#&gt; 4                      5      A3   A3_C1       3.09                g_inflata_VT</span></span>
+<span><span class="co">#&gt; 5                      5      A3   A3_C1       3.09               g_tenellus_VT</span></span>
+<span><span class="co">#&gt; 6                      5      A3   A3_C1       3.09              n_dutertrei_VT</span></span>
+<span><span class="co">#&gt;   counts_raw_ab</span></span>
+<span><span class="co">#&gt; 1             0</span></span>
+<span><span class="co">#&gt; 2             0</span></span>
+<span><span class="co">#&gt; 3            63</span></span>
+<span><span class="co">#&gt; 4             0</span></span>
+<span><span class="co">#&gt; 5             0</span></span>
+<span><span class="co">#&gt; 6             1</span></span></code></pre></div>
 <p>The functions <code>compute_*()</code> output a table in a
 long-format as well as a message reporting the amount of data that could
 not be converted because of missing metadata.</p>
