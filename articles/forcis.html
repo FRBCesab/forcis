@@ -81,7 +81,7 @@ basic functions to facilitate the handling of this large database,
 including functions to download, select, filter, homogenize, and
 visualize the data. It also enables users to explore the spatial
 distribution and temporal evolution of planktonic foraminifera.</p>
-<p>This vignette is an overview of the main features.</p>
+<p>This vignette is an overview of the main features of the package.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
@@ -99,11 +99,7 @@ distribution and temporal evolution of planktonic foraminifera.</p>
 requires some spatial system libraries (GDAL and PROJ). Please read <a href="https://github.com/r-spatial/sf?tab=readme-ov-file#installing" class="external-link">this
 page</a> if you have any trouble to install <code>forcis</code>.</p>
 </blockquote>
-</div>
-<div class="section level2">
-<h2 id="setup">Setup<a class="anchor" aria-label="anchor" href="#setup"></a>
-</h2>
-<p>First, let’s attach the required packages.</p>
+<p>Now let’s attach the required packages.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://frbcesab.github.io/forcis">forcis</a></span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -117,13 +113,16 @@ latest version</p>
 <p>Let’s download the latest version of the FORCIS database with
 <code><a href="../reference/download_forcis_db.html">download_forcis_db()</a></code>:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Create a data/ folder ----</span></span>
+<code class="sourceCode R"><span><span class="co"># Create a data/ folder in the current directory ----</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.create</a></span><span class="op">(</span><span class="st">"data"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Download latest version of the database ----</span></span>
-<span><span class="fu"><a href="../reference/download_forcis_db.html">download_forcis_db</a></span><span class="op">(</span>path <span class="op">=</span> <span class="st">"data"</span>, version <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
-<p>By default (<code>version = NULL</code>), this function downloads the
-latest version of the database. The database is saved in
+<span><span class="fu"><a href="../reference/download_forcis_db.html">download_forcis_db</a></span><span class="op">(</span></span>
+<span>  path <span class="op">=</span> <span class="st">"data"</span>,</span>
+<span>  version <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p>By default (i.e. <code>version = NULL</code>), this function
+downloads the latest version of the database. The database is saved in
 <code>data/forcis-db/version-99/</code>, where <code>99</code> is the
 version number.</p>
 <p><strong>N.B.</strong> The package <code>forcis</code> is designed to
@@ -138,30 +137,262 @@ database. Let’s import the latest release of the data.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Import plankton nets data ----</span></span>
 <span><span class="va">net_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_data.html">read_plankton_nets_data</a></span><span class="op">(</span>path <span class="op">=</span> <span class="st">"data"</span><span class="op">)</span></span></code></pre></div>
-<p><strong>N.B.</strong> Here we use a subset of the plankton nets data,
-not the whole dataset.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Print data ----</span></span>
+<span><span class="va">net_data</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2,451 × 86</span></span></span>
+<span><span class="co">#&gt;    data_type cruise_id    profile_id sample_id sample_min_depth sample_max_depth</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> Net       ATLANTIS_II… ATLANTIS_… ATLANTIS…                0               86</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> Net       ATLANTIS_II… ATLANTIS_… ATLANTIS…                0               86</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> Net       ATLANTIS_II… ATLANTIS_… ATLANTIS…                0              118</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> Net       ATLANTIS_II… ATLANTIS_… ATLANTIS…                0              106</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> Net       ATLANTIS_II… ATLANTIS_… ATLANTIS…                0              118</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> Net       ATLANTIS_II… ATLANTIS_… ATLANTIS…                0               86</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> Net       ATLANTIS_II… ATLANTIS_… ATLANTIS…                0               64</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> Net       ATLANTIS_II… ATLANTIS_… ATLANTIS…                0               73</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> Net       ATLANTIS_II… ATLANTIS_… ATLANTIS…                0               83</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> Net       ATLANTIS_II… ATLANTIS_… ATLANTIS…                0              127</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 2,441 more rows</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 80 more variables: profile_depth_min &lt;int&gt;, profile_depth_max &lt;dbl&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   profile_date_time &lt;chr&gt;, cast_net_op_m2 &lt;dbl&gt;, subsample_id &lt;chr&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   sample_segment_length &lt;lgl&gt;, subsample_count_type &lt;chr&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   subsample_size_fraction_min &lt;int&gt;, subsample_size_fraction_max &lt;int&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   site_lat_start_decimal &lt;dbl&gt;, site_lon_start_decimal &lt;dbl&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   sample_volume_filtered &lt;dbl&gt;, …</span></span></span></code></pre></div>
+<p><strong>N.B.</strong> For this vignette, we use a subset of the
+plankton nets data, not the whole dataset.</p>
 </div>
 <div class="section level2">
-<h2 id="select-a-taxonomy">Select a taxonomy<a class="anchor" aria-label="anchor" href="#select-a-taxonomy"></a>
+<h2 id="select-a-forcis-taxonomy">Select a FORCIS taxonomy<a class="anchor" aria-label="anchor" href="#select-a-forcis-taxonomy"></a>
 </h2>
 <p>The FORCIS database provides three different taxonomies:</p>
 <ul>
 <li>
-<code>LT</code>: lumped taxonomy</li>
+<code>OT</code>: original taxonomy, i.e. the initial list of species
+names and attributes (e.g., shell pigmentation, coiling direction) as
+reported in various datasets and studies.</li>
 <li>
-<code>VT</code>: validated taxonomy</li>
+<code>VT</code>: validated taxonomy, i.e. a refined version of the
+original taxonomy that resolves issues of synonymy (different names for
+the same taxon) and shifting taxonomic concepts.</li>
 <li>
-<code>OT</code>: original taxonomy</li>
+<code>LT</code>: lumped taxonomy, i.e. a simplified version of the
+validated taxonomy. It merges taxa that are difficult to distinguish
+across datasets (morphospecies), ensuring consistency and comparability
+in broader analyses.</li>
 </ul>
 <p>See the associated <a href="https://doi.org/10.1038/s41597-023-02264-2" class="external-link">data paper</a> for
 further information.</p>
 <p>After importing the data and before going any further, the next step
-involves choosing the taxonomic level for the analyses.</p>
+involves choosing the taxonomic level for the analyses. <strong>This is
+mandatory to avoid duplicated records</strong>.</p>
 <p>Let’s use the function <code><a href="../reference/select_taxonomy.html">select_taxonomy()</a></code> to select the
 <strong>VT</strong> taxonomy (validated taxonomy):</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Select taxonomy ----</span></span>
-<span><span class="va">net_data_vt</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/select_taxonomy.html">select_taxonomy</a></span><span class="op">(</span><span class="va">net_data</span>, taxonomy <span class="op">=</span> <span class="st">"VT"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">net_data_vt</span> <span class="op">&lt;-</span> <span class="va">net_data</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/select_taxonomy.html">select_taxonomy</a></span><span class="op">(</span>taxonomy <span class="op">=</span> <span class="st">"VT"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">net_data_vt</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2,451 × 80</span></span></span>
+<span><span class="co">#&gt;    data_type cruise_id    profile_id sample_id sample_min_depth sample_max_depth</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> Net       ATLANTIS_II… ATLANTIS_… ATLANTIS…                0               86</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> Net       ATLANTIS_II… ATLANTIS_… ATLANTIS…                0               86</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> Net       ATLANTIS_II… ATLANTIS_… ATLANTIS…                0              118</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> Net       ATLANTIS_II… ATLANTIS_… ATLANTIS…                0              106</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> Net       ATLANTIS_II… ATLANTIS_… ATLANTIS…                0              118</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> Net       ATLANTIS_II… ATLANTIS_… ATLANTIS…                0               86</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> Net       ATLANTIS_II… ATLANTIS_… ATLANTIS…                0               64</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> Net       ATLANTIS_II… ATLANTIS_… ATLANTIS…                0               73</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> Net       ATLANTIS_II… ATLANTIS_… ATLANTIS…                0               83</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> Net       ATLANTIS_II… ATLANTIS_… ATLANTIS…                0              127</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 2,441 more rows</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 74 more variables: profile_depth_min &lt;int&gt;, profile_depth_max &lt;dbl&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   profile_date_time &lt;chr&gt;, cast_net_op_m2 &lt;dbl&gt;, subsample_id &lt;chr&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   sample_segment_length &lt;lgl&gt;, subsample_count_type &lt;chr&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   subsample_size_fraction_min &lt;int&gt;, subsample_size_fraction_max &lt;int&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   site_lat_start_decimal &lt;dbl&gt;, site_lon_start_decimal &lt;dbl&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   sample_volume_filtered &lt;dbl&gt;, …</span></span></span></code></pre></div>
+<p>This function has removed species columns associated with other
+taxonomies.</p>
+<p>At this stage user can choose what he/she wants to do with this
+cleaned dataset. In the next sections, we present some use cases.</p>
+</div>
+<div class="section level2">
+<h2 id="use-case-1-exploration">Use case 1: Exploration<a class="anchor" aria-label="anchor" href="#use-case-1-exploration"></a>
+</h2>
+<p>In this first use case, we want to have an overview of our data.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># How many subsamples do we have? ----</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">net_data_vt</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 2451</span></span>
+<span></span>
+<span><span class="co"># How many species have been sampled? ----</span></span>
+<span><span class="va">net_data_vt</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/get_species_names.html">get_species_names</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 56</span></span></code></pre></div>
+<p>We can use the <code><a href="../reference/plot_record_by_year.html">plot_record_by_year()</a></code> function to display
+the number of samples per year.</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># What is the temporal extent? ----</span></span>
+<span><span class="fu"><a href="../reference/plot_record_by_year.html">plot_record_by_year</a></span><span class="op">(</span><span class="va">net_data_vt</span><span class="op">)</span></span></code></pre></div>
+<p><img src="forcis_files/figure-html/use-case-1-time-1.png" width="700"></p>
+<p>The <code><a href="../reference/plot_record_by_month.html">plot_record_by_month()</a></code> and
+<code><a href="../reference/plot_record_by_season.html">plot_record_by_season()</a></code> are also available to display
+samples at different temporal resolutions.</p>
+<p>Let’s use the <code><a href="../reference/ggmap_data.html">ggmap_data()</a></code> function to get an idea of
+the spatial extent of these data.</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># What is the spatial extent? ----</span></span>
+<span><span class="fu"><a href="../reference/ggmap_data.html">ggmap_data</a></span><span class="op">(</span><span class="va">net_data_vt</span><span class="op">)</span></span></code></pre></div>
+<p><img src="forcis_files/figure-html/use-case-1-space-1.png" width="700"></p>
+<p>The <a href="https://frbcesab.github.io/forcis/articles/data-visualization.html">Data
+visualization</a> vignette provides a complete description of all
+plotting functions available in <code>forcis</code>.</p>
+</div>
+<div class="section level2">
+<h2 id="use-case-2-specific-question">Use case 2: Specific question<a class="anchor" aria-label="anchor" href="#use-case-2-specific-question"></a>
+</h2>
+<p>In this second use case we want to answer the following question:</p>
+<blockquote>
+<p>What is the distribution of the planktonic foraminifera species
+<em>Neogloboquadrina pachyderma</em> between 1970 and 2000 in the
+Mediterranean Sea?</p>
+</blockquote>
+<p>We can divide the problem into different stages:</p>
+<ol style="list-style-type: decimal">
+<li>Find the species name in the FORCIS dataset</li>
+<li>Filter data for <em>N. pachyderma</em>
+</li>
+<li>Keep non-zero samples for this species</li>
+<li>Filter data for 1970-2000</li>
+<li>Filter data for Mediterranean Sea</li>
+<li>Plot records on a map</li>
+</ol>
+<div class="section level5">
+<h5 id="find-the-species-name">Find the species name<a class="anchor" aria-label="anchor" href="#find-the-species-name"></a>
+</h5>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Get all species names ----</span></span>
+<span><span class="va">species_list</span> <span class="op">&lt;-</span> <span class="va">net_data_vt</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/get_species_names.html">get_species_names</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Search for species containing the word 'pachyderma' ----</span></span>
+<span><span class="va">species_list</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grep</a></span><span class="op">(</span><span class="st">"pachyderma"</span>, <span class="va">species_list</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="co">#&gt; [1] "n_pachyderma_VT"          "n_pachyderma_incompta_VT"</span></span>
+<span></span>
+<span><span class="co"># Store the species name ----</span></span>
+<span><span class="va">sp_name</span> <span class="op">&lt;-</span> <span class="st">"n_pachyderma_VT"</span></span></code></pre></div>
+</div>
+<div class="section level5">
+<h5 id="species-filter">Species filter<a class="anchor" aria-label="anchor" href="#species-filter"></a>
+</h5>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Filter data by species ----</span></span>
+<span><span class="va">net_data_vt_pachyderma</span> <span class="op">&lt;-</span> <span class="va">net_data_vt</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/filter_by_species.html">filter_by_species</a></span><span class="op">(</span>species <span class="op">=</span> <span class="va">sp_name</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">net_data_vt_pachyderma</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2,451 × 25</span></span></span>
+<span><span class="co">#&gt;    data_type cruise_id    profile_id sample_id sample_min_depth sample_max_depth</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> Net       ATLANTIS_II… ATLANTIS_… ATLANTIS…                0               86</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> Net       ATLANTIS_II… ATLANTIS_… ATLANTIS…                0               86</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> Net       ATLANTIS_II… ATLANTIS_… ATLANTIS…                0              118</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> Net       ATLANTIS_II… ATLANTIS_… ATLANTIS…                0              106</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> Net       ATLANTIS_II… ATLANTIS_… ATLANTIS…                0              118</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> Net       ATLANTIS_II… ATLANTIS_… ATLANTIS…                0               86</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> Net       ATLANTIS_II… ATLANTIS_… ATLANTIS…                0               64</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> Net       ATLANTIS_II… ATLANTIS_… ATLANTIS…                0               73</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> Net       ATLANTIS_II… ATLANTIS_… ATLANTIS…                0               83</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> Net       ATLANTIS_II… ATLANTIS_… ATLANTIS…                0              127</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 2,441 more rows</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 19 more variables: profile_depth_min &lt;int&gt;, profile_depth_max &lt;dbl&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   profile_date_time &lt;chr&gt;, cast_net_op_m2 &lt;dbl&gt;, subsample_id &lt;chr&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   sample_segment_length &lt;lgl&gt;, subsample_count_type &lt;chr&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   subsample_size_fraction_min &lt;int&gt;, subsample_size_fraction_max &lt;int&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   site_lat_start_decimal &lt;dbl&gt;, site_lon_start_decimal &lt;dbl&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   sample_volume_filtered &lt;dbl&gt;, …</span></span></span>
+<span></span>
+<span><span class="co"># Remove empty samples for N. pachyderma ----</span></span>
+<span><span class="va">net_data_vt_pachyderma</span> <span class="op">&lt;-</span> <span class="va">net_data_vt_pachyderma</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">n_pachyderma_VT</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">net_data_vt_pachyderma</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 823 × 25</span></span></span>
+<span><span class="co">#&gt;    data_type cruise_id profile_id    sample_id sample_min_depth sample_max_depth</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> Net       NIOP-C1   NIOP-C1_309-… NIOP-C1_…             28.3             49.5</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> Net       NIOP-C1   NIOP-C1_309-… NIOP-C1_…              8               18.2</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> Net       NIOP-C1   NIOP-C1_310-… NIOP-C1_…             74.3             99.6</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> Net       NIOP-C1   NIOP-C1_310-… NIOP-C1_…             48.5             74.3</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> Net       NIOP-C1   NIOP-C1_310-… NIOP-C1_…             23.3             48.5</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> Net       NIOP-C1   NIOP-C1_310-… NIOP-C1_…              8.1             23.3</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> Net       NIOP-C1   NIOP-C1_310-… NIOP-C1_…            298.             498. </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> Net       NIOP-C1   NIOP-C1_310-… NIOP-C1_…            200.             298. </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> Net       NIOP-C1   NIOP-C1_310-… NIOP-C1_…            148.             200. </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> Net       NIOP-C1   NIOP-C1_313-… NIOP-C1_…             74.8             99.6</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 813 more rows</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 19 more variables: profile_depth_min &lt;int&gt;, profile_depth_max &lt;dbl&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   profile_date_time &lt;chr&gt;, cast_net_op_m2 &lt;dbl&gt;, subsample_id &lt;chr&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   sample_segment_length &lt;lgl&gt;, subsample_count_type &lt;chr&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   subsample_size_fraction_min &lt;int&gt;, subsample_size_fraction_max &lt;int&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   site_lat_start_decimal &lt;dbl&gt;, site_lon_start_decimal &lt;dbl&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   sample_volume_filtered &lt;dbl&gt;, …</span></span></span></code></pre></div>
+</div>
+<div class="section level5">
+<h5 id="temporal-filter">Temporal filter<a class="anchor" aria-label="anchor" href="#temporal-filter"></a>
+</h5>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Filter data by years ----</span></span>
+<span><span class="va">net_data_vt_pachyderma_7000</span> <span class="op">&lt;-</span> <span class="va">net_data_vt_pachyderma</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/filter_by_year.html">filter_by_year</a></span><span class="op">(</span>years <span class="op">=</span> <span class="fl">1970</span><span class="op">:</span><span class="fl">2000</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Number of records ----</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">net_data_vt_pachyderma_7000</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 461</span></span></code></pre></div>
+</div>
+<div class="section level5">
+<h5 id="spatial-filter">Spatial filter<a class="anchor" aria-label="anchor" href="#spatial-filter"></a>
+</h5>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Get the list of ocean names ----</span></span>
+<span><span class="fu"><a href="../reference/get_ocean_names.html">get_ocean_names</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "Arctic Ocean"         "Indian Ocean"         "Mediterranean Sea"   </span></span>
+<span><span class="co">#&gt; [4] "North Atlantic Ocean" "North Pacific Ocean"  "South Atlantic Ocean"</span></span>
+<span><span class="co">#&gt; [7] "South Pacific Ocean"  "Southern Ocean"</span></span>
+<span></span>
+<span><span class="co"># Filter data by ocean ----</span></span>
+<span><span class="va">net_data_vt_pachyderma_7000_med</span> <span class="op">&lt;-</span> <span class="va">net_data_vt_pachyderma_7000</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/filter_by_ocean.html">filter_by_ocean</a></span><span class="op">(</span>ocean <span class="op">=</span> <span class="st">"Mediterranean Sea"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Number of records ----</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">net_data_vt_pachyderma_7000_med</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 2</span></span></code></pre></div>
+</div>
+<div class="section level5">
+<h5 id="distribution-map">Distribution map<a class="anchor" aria-label="anchor" href="#distribution-map"></a>
+</h5>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Plot N. pachyderma records on a World map ----</span></span>
+<span><span class="fu"><a href="../reference/ggmap_data.html">ggmap_data</a></span><span class="op">(</span><span class="va">net_data_vt_pachyderma_7000_med</span><span class="op">)</span></span></code></pre></div>
+<p><img src="forcis_files/figure-html/use-case-2-map-1.png" width="700"></p>
+<p>Finally, we can combine all these steps into one single pipeline:</p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Final use case 2 code ----</span></span>
+<span><span class="va">net_data_vt</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/filter_by_species.html">filter_by_species</a></span><span class="op">(</span>species <span class="op">=</span> <span class="st">"n_pachyderma_VT"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">n_pachyderma_VT</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/filter_by_year.html">filter_by_year</a></span><span class="op">(</span>years <span class="op">=</span> <span class="fl">1970</span><span class="op">:</span><span class="fl">2000</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/filter_by_ocean.html">filter_by_ocean</a></span><span class="op">(</span>ocean <span class="op">=</span> <span class="st">"Mediterranean Sea"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/ggmap_data.html">ggmap_data</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p>The <a href="https://frbcesab.github.io/forcis/articles/select-and-filter-data.html">Select,
+reshape, and filter data</a> vignette shows examples to handle FORCIS
+data.</p>
+</div>
 </div>
 <div class="section level2">
 <h2 id="to-go-further">To go further<a class="anchor" aria-label="anchor" href="#to-go-further"></a>
