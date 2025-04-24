@@ -43,15 +43,36 @@
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.1.0.9000" id="forcis-0109000">forcis 0.1.0.9000<a class="anchor" aria-label="anchor" href="#forcis-0109000"></a></h2>
 <p>Answers to editor and reviewer comments:</p>
-<ul><li>Refactor code of <code>read_*_data()</code> functions (<a href="https://github.com/FRBCesab/forcis/pull/85" class="external-link">#85</a>)</li>
-<li>Recommend to use <a href="https://github.com/posit-dev/air" class="external-link"><code>air</code></a> to automatically format code (<a href="https://github.com/FRBCesab/forcis/pull/80" class="external-link">#80</a>)</li>
-<li>Homogeneize function outputs (<code>tibble</code>) (<a href="https://github.com/FRBCesab/forcis/pull/82" class="external-link">#82</a>)</li>
-<li>Use the same prefix <code>forcis_</code> in global options (<a href="https://github.com/FRBCesab/forcis/pull/81" class="external-link">#81</a>)</li>
-<li>Remove the usage of the hidden dotfile <code>.forcis</code> (<a href="https://github.com/FRBCesab/forcis/pull/87" class="external-link">#87</a>)</li>
-<li>Add a statement of need (<a href="https://github.com/FRBCesab/forcis/pull/84" class="external-link">#84</a>)</li>
-<li>Improve documentation (<a href="https://github.com/FRBCesab/forcis/issues/64" class="external-link">#64</a>, <a href="https://github.com/FRBCesab/forcis/issues/65" class="external-link">#65</a>, <a href="https://github.com/FRBCesab/forcis/issues/66" class="external-link">#66</a>)</li>
-<li>Add funder in <code>DESCRIPTION</code> (<a href="https://github.com/FRBCesab/forcis/issues/69" class="external-link">#69</a>)</li>
-<li>Improve unit tests (<a href="https://github.com/FRBCesab/forcis/issues/67" class="external-link">#67</a>, <a href="https://github.com/FRBCesab/forcis/issues/68" class="external-link">#68</a>, <a href="https://github.com/FRBCesab/forcis/pull/79" class="external-link">#79</a>, <a href="https://github.com/FRBCesab/forcis/pull/88" class="external-link">#88</a>)</li>
+<ul><li>BREAKING CHANGE
+<ul><li>Remove the usage of the hidden dotfile <code>.forcis</code> - [<a href="https://github.com/FRBCesab/forcis/pull/87" class="external-link">#87</a>]</li>
+</ul></li>
+<li>
+<code>DESCRIPTION</code> file
+<ul><li>Add reviewer 2 as <code>rev</code> - [<a href="https://github.com/FRBCesab/forcis/issues/111" class="external-link">#111</a>]</li>
+<li>Add FRB-CESAB as <code>fnd</code> - [<a href="https://github.com/FRBCesab/forcis/issues/69" class="external-link">#69</a>]</li>
+<li>Set minimal version of R to 4.1.0 (pipe) - [<a href="https://github.com/FRBCesab/forcis/commit/285c37af7ed2c0605bc88aebcca6bc72b790fe2c" class="external-link">285c37</a>]</li>
+<li>Move <code>dplyr</code> from <em>Imports</em> to <em>Suggests</em> - [<a href="https://github.com/FRBCesab/forcis/issues/79" class="external-link">#79</a>]</li>
+</ul></li>
+<li>R code
+<ul><li>Refactor code of <code>read_*_data()</code> functions - [<a href="https://github.com/FRBCesab/forcis/pull/85" class="external-link">#85</a>]</li>
+<li>Homogeneize function outputs (<code>tibble</code>) - [<a href="https://github.com/FRBCesab/forcis/pull/82" class="external-link">#82</a>]</li>
+<li>Use the same prefix <code>forcis_</code> for global options - [<a href="https://github.com/FRBCesab/forcis/pull/81" class="external-link">#81</a>]</li>
+<li>Improve and standardize function examples - [<a href="https://github.com/FRBCesab/forcis/pull/99" class="external-link">#99</a>, <a href="https://github.com/FRBCesab/forcis/pull/103" class="external-link">#103</a>]</li>
+<li>Refactor <code>compute_*()</code> functions in base R - [<a href="https://github.com/FRBCesab/forcis/issues/79" class="external-link">#79</a>]</li>
+</ul></li>
+<li>Documentation
+<ul><li>Improve vignettes - [<a href="https://github.com/FRBCesab/forcis/issues/64" class="external-link">#64</a>, <a href="https://github.com/FRBCesab/forcis/issues/65" class="external-link">#65</a>, <a href="https://github.com/FRBCesab/forcis/issues/66" class="external-link">#66</a>, <a href="https://github.com/FRBCesab/forcis/issues/107" class="external-link">#107</a>, <a href="https://github.com/FRBCesab/forcis/issues/108" class="external-link">#108</a>, <a href="https://github.com/FRBCesab/forcis/issues/112" class="external-link">#112</a>]</li>
+<li>Add a statement of need in <code>README</code> - [<a href="https://github.com/FRBCesab/forcis/pull/84" class="external-link">#84</a>]</li>
+<li>Add two figures in <code>README</code> to better explain the package - [<a href="https://github.com/FRBCesab/forcis/pull/105" class="external-link">#105</a>, <a href="https://github.com/FRBCesab/forcis/pull/106" class="external-link">#106</a>]</li>
+</ul></li>
+<li>Unit tests
+<ul><li>Improve unit tests - [<a href="https://github.com/FRBCesab/forcis/issues/67" class="external-link">#67</a>, <a href="https://github.com/FRBCesab/forcis/issues/68" class="external-link">#68</a>, <a href="https://github.com/FRBCesab/forcis/pull/79" class="external-link">#79</a>, <a href="https://github.com/FRBCesab/forcis/pull/88" class="external-link">#88</a>, <a href="https://github.com/FRBCesab/forcis/pull/101" class="external-link">#101</a>, <a href="https://github.com/FRBCesab/forcis/pull/118" class="external-link">#118</a>]</li>
+</ul></li>
+<li>Miscellaneous
+<ul><li>Recommend to use <a href="https://github.com/posit-dev/air" class="external-link"><code>air</code></a> in <code>CONTRIBUTING.md</code> to automatically format code - [<a href="https://github.com/FRBCesab/forcis/pull/80" class="external-link">#80</a>]</li>
+<li>Add a favicon to the website - [<a href="https://github.com/FRBCesab/forcis/pull/115" class="external-link">#115</a>]</li>
+<li>Add a <code>dependabot.yml</code> - [<a href="https://github.com/FRBCesab/forcis/pull/90" class="external-link">#90</a>]</li>
+</ul></li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.1.0" id="forcis-010">forcis 0.1.0<a class="anchor" aria-label="anchor" href="#forcis-010"></a></h2>
