@@ -71,7 +71,10 @@
     
 <p>The package <code>forcis</code> provides <a href="https://frbcesab.github.io/forcis/reference/index.html#select-and-filters-tools">a
 lot of functions</a> to filter, reshape, and select FORCIS data. This
-vignette shows how to use these functions.</p>
+vignette shows how to use these functions. With the exception of
+<code><a href="../reference/select_taxonomy.html">select_taxonomy()</a></code>, all functions presented in this vignette
+are optional and depend on your research questions. You can filter data
+by species, time range, ocean, etc.</p>
 <div class="section level2">
 <h2 id="setup">Setup<a class="anchor" aria-label="anchor" href="#setup"></a>
 </h2>
@@ -100,39 +103,101 @@ plankton nets data, not the whole dataset.</p>
 <div class="section level3">
 <h3 id="select-a-taxonomy">Select a taxonomy<a class="anchor" aria-label="anchor" href="#select-a-taxonomy"></a>
 </h3>
-<p>The FORCIS database provides three different taxonomies:
-<code>LT</code> (lumped taxonomy), <code>VT</code> (validated taxonomy)
-and <code>OT</code> (original taxonomy). See the <a href="https://doi.org/10.1038/s41597-023-02264-2" class="external-link">associated data
+<p>The FORCIS database provides three different taxonomies:</p>
+<ul>
+<li>
+<code>OT</code>: original taxonomy, i.e. the initial list of species
+names and attributes (e.g., shell pigmentation, coiling direction) as
+reported in various datasets and studies.</li>
+<li>
+<code>VT</code>: validated taxonomy, i.e. a refined version of the
+original taxonomy that resolves issues of synonymy (different names for
+the same taxon) and shifting taxonomic concepts.</li>
+<li>
+<code>LT</code>: lumped taxonomy, i.e. a simplified version of the
+validated taxonomy. It merges taxa that are difficult to distinguish
+across datasets (morphospecies), ensuring consistency and comparability
+in broader analyses.</li>
+</ul>
+<p>See the <a href="https://doi.org/10.1038/s41597-023-02264-2" class="external-link">associated data
 paper</a> for further information.</p>
 <p>After importing the data and before going any further, the next step
-involves choosing the taxonomic level for the analyses. Let’s use the
-function <code><a href="../reference/select_taxonomy.html">select_taxonomy()</a></code> to select the
+involves choosing the taxonomic level for the analyses. <strong>This is
+mandatory to avoid duplicated records</strong>.</p>
+<p>Let’s use the function <code><a href="../reference/select_taxonomy.html">select_taxonomy()</a></code> to select the
 <strong>VT</strong> taxonomy (validated taxonomy):</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Select taxonomy ----</span></span>
-<span><span class="va">net_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/select_taxonomy.html">select_taxonomy</a></span><span class="op">(</span><span class="va">net_data</span>, taxonomy <span class="op">=</span> <span class="st">"VT"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">net_data_vt</span> <span class="op">&lt;-</span> <span class="va">net_data</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/select_taxonomy.html">select_taxonomy</a></span><span class="op">(</span>taxonomy <span class="op">=</span> <span class="st">"VT"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">net_data_vt</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2,451 × 80</span></span></span>
+<span><span class="co">#&gt;    data_type cruise_id    profile_id sample_id sample_min_depth sample_max_depth</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> Net       ATLANTIS_II… ATLANTIS_… ATLANTIS…                0               86</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> Net       ATLANTIS_II… ATLANTIS_… ATLANTIS…                0               86</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> Net       ATLANTIS_II… ATLANTIS_… ATLANTIS…                0              118</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> Net       ATLANTIS_II… ATLANTIS_… ATLANTIS…                0              106</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> Net       ATLANTIS_II… ATLANTIS_… ATLANTIS…                0              118</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> Net       ATLANTIS_II… ATLANTIS_… ATLANTIS…                0               86</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> Net       ATLANTIS_II… ATLANTIS_… ATLANTIS…                0               64</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> Net       ATLANTIS_II… ATLANTIS_… ATLANTIS…                0               73</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> Net       ATLANTIS_II… ATLANTIS_… ATLANTIS…                0               83</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> Net       ATLANTIS_II… ATLANTIS_… ATLANTIS…                0              127</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 2,441 more rows</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 74 more variables: profile_depth_min &lt;int&gt;, profile_depth_max &lt;dbl&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   profile_date_time &lt;chr&gt;, cast_net_op_m2 &lt;dbl&gt;, subsample_id &lt;chr&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   sample_segment_length &lt;lgl&gt;, subsample_count_type &lt;chr&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   subsample_size_fraction_min &lt;int&gt;, subsample_size_fraction_max &lt;int&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   site_lat_start_decimal &lt;dbl&gt;, site_lon_start_decimal &lt;dbl&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   sample_volume_filtered &lt;dbl&gt;, …</span></span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="select-required-columns">Select required columns<a class="anchor" aria-label="anchor" href="#select-required-columns"></a>
 </h3>
 <p>Because FORCIS data contain more than 100 columns, the function
-<code><a href="../reference/select_forcis_columns.html">select_forcis_columns()</a></code> can be used to lighten the
-<code>data.frame</code> to easily handle it and to speed up some
-computations.</p>
+<code><a href="../reference/select_forcis_columns.html">select_forcis_columns()</a></code> can be used to lighten the data to
+easily handle it and to speed up some computations.</p>
 <p>By default, only required columns listed in
 <code><a href="../reference/get_required_columns.html">get_required_columns()</a></code> (required by some functions of the
 package like <code>compute_*()</code> and <code>plot_*()</code>) and
 species columns will be kept.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Select taxonomy ----</span></span>
-<span><span class="va">net_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/select_forcis_columns.html">select_forcis_columns</a></span><span class="op">(</span><span class="va">net_data</span><span class="op">)</span></span></code></pre></div>
-<p>But you can also use the argument <code>cols</code> to keep
-additional columns.</p>
+<code class="sourceCode R"><span><span class="co"># Remove not required columns (optional) ----</span></span>
+<span><span class="va">net_data_vt</span> <span class="op">&lt;-</span> <span class="va">net_data_vt</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/select_forcis_columns.html">select_forcis_columns</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">net_data_vt</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2,451 × 77</span></span></span>
+<span><span class="co">#&gt;    data_type cruise_id    profile_id sample_id sample_min_depth sample_max_depth</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> Net       ATLANTIS_II… ATLANTIS_… ATLANTIS…                0               86</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> Net       ATLANTIS_II… ATLANTIS_… ATLANTIS…                0               86</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> Net       ATLANTIS_II… ATLANTIS_… ATLANTIS…                0              118</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> Net       ATLANTIS_II… ATLANTIS_… ATLANTIS…                0              106</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> Net       ATLANTIS_II… ATLANTIS_… ATLANTIS…                0              118</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> Net       ATLANTIS_II… ATLANTIS_… ATLANTIS…                0               86</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> Net       ATLANTIS_II… ATLANTIS_… ATLANTIS…                0               64</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> Net       ATLANTIS_II… ATLANTIS_… ATLANTIS…                0               73</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> Net       ATLANTIS_II… ATLANTIS_… ATLANTIS…                0               83</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> Net       ATLANTIS_II… ATLANTIS_… ATLANTIS…                0              127</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 2,441 more rows</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 71 more variables: profile_depth_min &lt;int&gt;, profile_depth_max &lt;dbl&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   profile_date_time &lt;chr&gt;, cast_net_op_m2 &lt;dbl&gt;, subsample_id &lt;chr&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   sample_segment_length &lt;lgl&gt;, subsample_count_type &lt;chr&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   subsample_size_fraction_min &lt;int&gt;, subsample_size_fraction_max &lt;int&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   site_lat_start_decimal &lt;dbl&gt;, site_lon_start_decimal &lt;dbl&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   sample_volume_filtered &lt;dbl&gt;, …</span></span></span></code></pre></div>
+<p>You can also use the argument <code>cols</code> to keep additional
+columns.</p>
 </div>
 </div>
 <div class="section level2">
 <h2 id="filtering-rows">Filtering rows<a class="anchor" aria-label="anchor" href="#filtering-rows"></a>
 </h2>
+<p>The <code>filter_by_*()</code> functions are optional and their use
+depends on your research questions.</p>
 <div class="section level3">
 <h3 id="filter-by-month-of-data-collection">Filter by month of data collection<a class="anchor" aria-label="anchor" href="#filter-by-month-of-data-collection"></a>
 </h3>
@@ -142,14 +207,15 @@ arguments: the data and a numeric vector with values between 1 and
 12.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Filter data by sampling month ----</span></span>
-<span><span class="va">net_july_aug</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/filter_by_month.html">filter_by_month</a></span><span class="op">(</span><span class="va">net_data</span>, months <span class="op">=</span> <span class="fl">7</span><span class="op">:</span><span class="fl">8</span><span class="op">)</span></span>
+<span><span class="va">net_data_vt_july_aug</span> <span class="op">&lt;-</span> <span class="va">net_data_vt</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/filter_by_month.html">filter_by_month</a></span><span class="op">(</span>months <span class="op">=</span> <span class="fl">7</span><span class="op">:</span><span class="fl">8</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Number of original records ----</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">net_data</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">net_data_vt</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 2451</span></span>
 <span></span>
 <span><span class="co"># Number of filtered records ----</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">net_july_aug</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">net_data_vt_july_aug</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 516</span></span></code></pre></div>
 </div>
 <div class="section level3">
@@ -160,14 +226,15 @@ on the <strong>year of sampling</strong>. It requires two arguments: the
 data and a numeric vector with the years of interest.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Filter data by sampling year ----</span></span>
-<span><span class="va">net_90_20</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/filter_by_year.html">filter_by_year</a></span><span class="op">(</span><span class="va">net_data</span>, years <span class="op">=</span> <span class="fl">1990</span><span class="op">:</span><span class="fl">2020</span><span class="op">)</span></span>
+<span><span class="va">net_data_vt_9020</span> <span class="op">&lt;-</span> <span class="va">net_data_vt</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/filter_by_year.html">filter_by_year</a></span><span class="op">(</span>years <span class="op">=</span> <span class="fl">1990</span><span class="op">:</span><span class="fl">2020</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Number of original records ----</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">net_data</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">net_data_vt</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 2451</span></span>
 <span></span>
 <span><span class="co"># Number of filtered records ----</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">net_90_20</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">net_data_vt_9020</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 2283</span></span></code></pre></div>
 </div>
 <div class="section level3">
@@ -179,20 +246,41 @@ FORCIS data by a spatial bounding box (argument <code>bbox</code>).</p>
 the Indian ocean.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Filter by spatial bounding box ----</span></span>
-<span><span class="va">net_data_bbox</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/filter_by_bbox.html">filter_by_bbox</a></span><span class="op">(</span><span class="va">net_data</span>, bbox <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">45</span>, <span class="op">-</span><span class="fl">61</span>, <span class="fl">82</span>, <span class="op">-</span><span class="fl">24</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">net_data_vt_bbox</span> <span class="op">&lt;-</span> <span class="va">net_data_vt</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/filter_by_bbox.html">filter_by_bbox</a></span><span class="op">(</span>bbox <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">45</span>, <span class="op">-</span><span class="fl">61</span>, <span class="fl">82</span>, <span class="op">-</span><span class="fl">24</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Number of original records ----</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">net_data</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">net_data_vt</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 2451</span></span>
 <span></span>
 <span><span class="co"># Number of filtered records ----</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">net_data_bbox</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">net_data_vt_bbox</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 320</span></span></code></pre></div>
 <p>Note that the argument <code>bbox</code> can be either an object of
 class <code>bbox</code> (package <code>sf</code>) or a vector of four
 numeric values defining a square bounding box. If a vector of numeric
 values is provided, coordinates must be defined in the system WGS 84
 (<code>epsg=4326</code>).</p>
+<p>Let’s check the spatial extent by converting these two
+<code>tibbles</code> into spatial layers (<code>sf</code> objects) with
+the function <code><a href="../reference/data_to_sf.html">data_to_sf()</a></code>.</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Filter by spatial bounding box ----</span></span>
+<span><span class="va">net_data_vt_sf</span> <span class="op">&lt;-</span> <span class="va">net_data_vt</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/data_to_sf.html">data_to_sf</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">net_data_vt_bbox_sf</span> <span class="op">&lt;-</span> <span class="va">net_data_vt_bbox</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/data_to_sf.html">data_to_sf</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Original spatial extent ----</span></span>
+<span><span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_bbox.html" class="external-link">st_bbox</a></span><span class="op">(</span><span class="va">net_data_vt_sf</span><span class="op">)</span></span>
+<span><span class="co">#&gt;       xmin       ymin       xmax       ymax </span></span>
+<span><span class="co">#&gt;  -809816.4 -5989270.6 11259385.1  8116790.4</span></span>
+<span></span>
+<span><span class="co"># Spatial extent of filtered records ----</span></span>
+<span><span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_bbox.html" class="external-link">st_bbox</a></span><span class="op">(</span><span class="va">net_data_vt_bbox_sf</span><span class="op">)</span></span>
+<span><span class="co">#&gt;     xmin     ymin     xmax     ymax </span></span>
+<span><span class="co">#&gt;  4407928 -5989271  6704380 -3208558</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="filter-by-ocean">Filter by ocean<a class="anchor" aria-label="anchor" href="#filter-by-ocean"></a>
@@ -200,21 +288,22 @@ values is provided, coordinates must be defined in the system WGS 84
 <p>The function <code><a href="../reference/filter_by_ocean.html">filter_by_ocean()</a></code> can be used to filter
 FORCIS data by one or several oceans (argument <code>ocean</code>).</p>
 <p>Let’s filter the plankton net data located in the Indian ocean.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Filter by ocean name ----</span></span>
-<span><span class="va">net_data_indian</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/filter_by_ocean.html">filter_by_ocean</a></span><span class="op">(</span><span class="va">net_data</span>, ocean <span class="op">=</span> <span class="st">"Indian Ocean"</span><span class="op">)</span></span>
+<span><span class="va">net_data_vt_indian</span> <span class="op">&lt;-</span> <span class="va">net_data_vt</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/filter_by_ocean.html">filter_by_ocean</a></span><span class="op">(</span>ocean <span class="op">=</span> <span class="st">"Indian Ocean"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Number of original records ----</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">net_data</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">net_data_vt</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 2451</span></span>
 <span></span>
 <span><span class="co"># Number of filtered records ----</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">net_data_indian</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">net_data_vt_indian</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 1640</span></span></code></pre></div>
 <p>Use the function <code><a href="../reference/get_ocean_names.html">get_ocean_names()</a></code> to retrieve the name
 of World oceans according to the IHO Sea Areas dataset version 3 (used
 in this package).</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Get ocean names ----</span></span>
 <span><span class="fu"><a href="../reference/get_ocean_names.html">get_ocean_names</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "Arctic Ocean"         "Indian Ocean"         "Mediterranean Sea"   </span></span>
@@ -228,21 +317,25 @@ in this package).</p>
 FORCIS data a spatial polygon (argument <code>polygon</code>).</p>
 <p>Let’s filter the plankton net data by a spatial polygon defining
 boundaries of the Indian ocean.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Import spatial polygon ----</span></span>
-<span><span class="va">file_name</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"IHO_Indian_ocean_polygon.gpkg"</span><span class="op">)</span>, </span>
-<span>                         package <span class="op">=</span> <span class="st">"forcis"</span><span class="op">)</span></span>
+<span><span class="va">file_name</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"IHO_Indian_ocean_polygon.gpkg"</span><span class="op">)</span>,</span>
+<span>  package <span class="op">=</span> <span class="st">"forcis"</span></span>
+<span><span class="op">)</span></span>
+<span></span>
 <span><span class="va">indian_ocean</span> <span class="op">&lt;-</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html" class="external-link">st_read</a></span><span class="op">(</span><span class="va">file_name</span>, quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Filter by polygon ----</span></span>
-<span><span class="va">net_data_poly</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/filter_by_polygon.html">filter_by_polygon</a></span><span class="op">(</span><span class="va">net_data</span>, polygon <span class="op">=</span> <span class="va">indian_ocean</span><span class="op">)</span></span>
+<span><span class="va">net_data_vt_poly</span> <span class="op">&lt;-</span> <span class="va">net_data_vt</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/filter_by_polygon.html">filter_by_polygon</a></span><span class="op">(</span>polygon <span class="op">=</span> <span class="va">indian_ocean</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Number of original records ----</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">net_data</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">net_data_vt</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 2451</span></span>
 <span></span>
 <span><span class="co"># Number of filtered records ----</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">net_data_poly</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">net_data_vt_poly</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 1640</span></span></code></pre></div>
 </div>
 <div class="section level3">
@@ -250,23 +343,34 @@ boundaries of the Indian ocean.</p>
 </h3>
 <p>The <code><a href="../reference/filter_by_species.html">filter_by_species()</a></code> function allows users to filter
 FORCIS data for one or more species.</p>
-<p>It takes a <code>data.frame</code> and a vector of species names
-(argument <code>species</code>).</p>
-<p>Let’s subset plankton net data to only keep observations for <em>G.
+<p>It takes a <code>data.frame</code> (or a <code>tibble</code>) and a
+vector of species names (argument <code>species</code>).</p>
+<p>Let’s subset plankton net data to only keep only two species: <em>G.
 glutinata</em> and <em>C. nitida</em>.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Filter by species ----</span></span>
-<span><span class="va">glutinata_nitida</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/filter_by_species.html">filter_by_species</a></span><span class="op">(</span><span class="va">net_data</span>, </span>
-<span>                                      species <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"g_glutinata_VT"</span>, </span>
-<span>                                                  <span class="st">"c_nitida_VT"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">net_data_vt_glutinata_nitida</span> <span class="op">&lt;-</span> <span class="va">net_data_vt</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/filter_by_species.html">filter_by_species</a></span><span class="op">(</span>species <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"g_glutinata_VT"</span>, <span class="st">"c_nitida_VT"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Dimensions of original data ----</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">net_data</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">net_data_vt</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 2451   77</span></span>
 <span></span>
 <span><span class="co"># Dimensions of filtered data ----</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">glutinata_nitida</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">net_data_vt_glutinata_nitida</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 2451   23</span></span></code></pre></div>
+<p><strong>Important:</strong> The <code><a href="../reference/filter_by_species.html">filter_by_species()</a></code>
+function does not remove rows (samples) but columns: it removes other
+species columns. To only keep samples where these two species have been
+detected, we can use:</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Keep samples with positive counts ----</span></span>
+<span><span class="va">net_data_vt_glutinata_nitida</span> <span class="op">&lt;-</span> <span class="va">net_data_vt_glutinata_nitida</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">g_glutinata_VT</span> <span class="op">&gt;</span> <span class="fl">0</span> <span class="op">|</span> <span class="va">c_nitida_VT</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Number of filtered records ----</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">net_data_vt_glutinata_nitida</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 1013</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
@@ -277,20 +381,20 @@ glutinata</em> and <em>C. nitida</em>.</p>
 </h3>
 <p>The <code><a href="../reference/convert_to_long_format.html">convert_to_long_format()</a></code> function converts FORCIS
 data into a long format.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Convert to long format ----</span></span>
 <span><span class="va">net_data_long</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/convert_to_long_format.html">convert_to_long_format</a></span><span class="op">(</span><span class="va">net_data</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Dimensions of original data ----</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">net_data</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 2451   77</span></span>
+<span><span class="co">#&gt; [1] 2451   86</span></span>
 <span></span>
 <span><span class="co"># Dimensions of reshaped data ----</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">net_data_long</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 137256     23</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] 151962     23</span></span></code></pre></div>
 <p>Two columns have been created: <code>taxa</code> (taxon names) and
 <code>counts</code> (taxon counts).</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Column names ----</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">net_data_long</span><span class="op">)</span></span>
 <span><span class="co">#&gt;  [1] "data_type"                                </span></span>
