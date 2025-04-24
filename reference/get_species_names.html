@@ -69,19 +69,45 @@ functions.</p></dd>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
-<span class="r-in"><span><span class="co"># Folder in which the database is stored ----</span></span></span>
-<span class="r-in"><span><span class="va">path_to_db</span> <span class="op">&lt;-</span> <span class="st">"data"</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Import example dataset ----</span></span></span>
+<span class="r-in"><span><span class="va">file_name</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"FORCIS_net_sample.csv"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                         package <span class="op">=</span> <span class="st">"forcis"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Download and read the plankton nets data ----</span></span></span>
-<span class="r-in"><span><span class="va">plankton_nets_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_data.html">read_plankton_nets_data</a></span><span class="op">(</span><span class="va">path_to_db</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">net_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.table</a></span><span class="op">(</span><span class="va">file_name</span>, dec <span class="op">=</span> <span class="st">"."</span>, sep <span class="op">=</span> <span class="st">";"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Select a taxonomy ----</span></span></span>
-<span class="r-in"><span><span class="va">plankton_nets_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="select_taxonomy.html">select_taxonomy</a></span><span class="op">(</span><span class="va">plankton_nets_data</span>, taxonomy <span class="op">=</span> <span class="st">"OT"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">net_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="select_taxonomy.html">select_taxonomy</a></span><span class="op">(</span><span class="va">net_data</span>, taxonomy <span class="op">=</span> <span class="st">"VT"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Retrieve taxon names ----</span></span></span>
-<span class="r-in"><span><span class="fu">get_species_names</span><span class="op">(</span><span class="va">nets</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
+<span class="r-in"><span><span class="fu">get_species_names</span><span class="op">(</span><span class="va">net_data</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "b_digitata_VT"                 "b_pumilio_VT"                 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3] "b_variabilis_VT"               "c_nitida_VT"                  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5] "d_anfracta_VT"                 "g_adamsi_VT"                  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] "g_bulloides_VT"                "g_calida_VT"                  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9] "g_cavernula_VT"                "g_conglobatus_VT"             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11] "g_conglomerata_VT"             "g_crassaformis_VT"            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [13] "g_elongatus_VT"                "g_falconensis_VT"             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [15] "g_glutinata_VT"                "g_hexagona_VT"                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [17] "g_hirsuta_VT"                  "g_inflata_VT"                 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [19] "g_cultrata_VT"                 "g_minuta_VT"                  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [21] "g_ruber_albus_VT"              "g_ruber_albus_or_elongatus_VT"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [23] "g_ruber_any_VT"                "g_ruber_ruber_VT"             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [25] "g_rubescens_VT"                "g_scitula_VT"                 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [27] "g_siphonifera_VT"              "g_tenellus_VT"                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [29] "g_theyeri_VT"                  "g_truncatulinoides_VT"        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [31] "g_truncatulinoides_left_VT"    "g_truncatulinoides_right_VT"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [33] "g_tumida_VT"                   "g_ungulata_VT"                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [35] "g_uvula_VT"                    "n_vivans_VT"                  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [37] "h_digitata_VT"                 "h_pelagica_VT"                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [39] "n_dutertrei_VT"                "n_incompta_VT"                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [41] "n_pachyderma_VT"               "n_pachyderma_incompta_VT"     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [43] "o_riedeli_VT"                  "o_universa_VT"                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [45] "p_obliquiloculata_VT"          "s_dehiscens_VT"               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [47] "t_clarkei_VT"                  "t_fleisheri_VT"               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [49] "t_humilis_VT"                  "t_iota_VT"                    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [51] "t_parkerae_VT"                 "t_quinqueloba_VT"             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [53] "t_sacculifer_VT"               "t_sacculifer_no_sac_VT"       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [55] "t_sacculifer_sac_VT"           "UnID_VT"                      </span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
